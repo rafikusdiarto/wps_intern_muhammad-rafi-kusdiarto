@@ -42,17 +42,18 @@ Route::group(['prefix' => 'manager-keuangan', 'middleware' => 'role:MANAGER_KEU'
     Route::get('/{file}', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'download']);
 });
 
-
 Route::group(['prefix' => 'staff-operasional', 'middleware' => 'role:STAFF_OPS'], function () {
-    Route::get('/', [App\Http\Controllers\Staff\DashboardController::class, 'index']);
-    Route::resource('report', App\Http\Controllers\Staff\ReportController::class)->parameters([
+    Route::resource('report', App\Http\Controllers\Staff\StaffOperasionalController::class)->parameters([
         'report' => 'id']);
+    Route::get('/', [App\Http\Controllers\Staff\StaffOperasionalController::class, 'dashboard']);
+    Route::get('/{file}', [App\Http\Controllers\Staff\StaffOperasionalController::class, 'download']);
 });
 
 Route::group(['prefix' => 'staff-keuangan', 'middleware' => 'role:STAFF_KEU'], function () {
-    Route::get('/', [App\Http\Controllers\Manager\DashboardController::class, 'index']);
-    Route::resource('report', App\Http\Controllers\Staff\ReportController::class)->parameters([
+    Route::resource('report', App\Http\Controllers\Staff\StaffKeuanganController::class)->parameters([
         'report' => 'id']);
+    Route::get('/', [App\Http\Controllers\Staff\StaffKeuanganController::class, 'dashboard']);
+    Route::get('/{file}', [App\Http\Controllers\Staff\StaffKeuanganController::class, 'download']);
 });
 
 Route::group(['prefix' => 'direktur', 'middleware' => 'role:DIREKTUR'], function () {

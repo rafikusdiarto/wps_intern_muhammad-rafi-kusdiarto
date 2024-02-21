@@ -20,7 +20,7 @@ class RedirectController extends Controller
             return redirect('/manager-keuangan');
         } elseif ($roleUser == 'STAFF_OPS'){
             return redirect('/staff-operasional');
-        }elseif ($roleUser == 'STAFF_keu'){
+        }elseif ($roleUser == 'STAFF_KEU'){
             return redirect('/staff-keuangan');
         }
         else {

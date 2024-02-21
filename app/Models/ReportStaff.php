@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ReportStaff extends Model
 {
     use HasFactory;
+    public $table = 'report_staffs';
     protected $guarded = ['id'];
 
     public function staff()

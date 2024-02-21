@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
 
         $staff_ops = User::create([
             'name' => 'Jules Goodwin',
-            'email' => 'staffperasional@mail.com',
+            'email' => 'staffoperasional@mail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('staffops123'),
             'remember_token' => \Str::random(60),
