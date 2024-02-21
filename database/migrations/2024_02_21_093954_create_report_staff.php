@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('daily_logs_staff', function (Blueprint $table) {
+        Schema::create('report_staffs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('staff_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('report');
             $table->string('file_report')->nullable();
             $table->enum('status', ['PENDING', 'DISETUJUI', 'DITOLAK']);
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('daily_logs_staff');
+        Schema::dropIfExists('report_staffs');
     }
 };

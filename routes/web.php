@@ -20,11 +20,47 @@ Route::get('/', function () {
 
 Route::get('/redirect', [RedirectController::class, 'index']);
 
-Route::get('/direktur', [App\Http\Controllers\Direktur\DashboardController::class, 'index']);
-Route::get('/manager-operasional', [App\Http\Controllers\Manager\DashboardController::class, 'index']);
-Route::get('/manager-keuangan', [App\Http\Controllers\Manager\DashboardController::class, 'index']);
-Route::get('/staff-operasional', [App\Http\Controllers\Staff\DashboardController::class, 'index']);
-Route::get('/staff-keuangan', [App\Http\Controllers\Staff\DashboardController::class, 'index']);
+// Route::get('/direktur', [App\Http\Controllers\Direktur\DashboardController::class, 'index'])->middleware('role:DIREKTUR');
+// Route::get('/manager-operasional', [App\Http\Controllers\Manager\DashboardController::class, 'index'])->middleware('role:MANAGER_OPS');
+// Route::get('/manager-keuangan', [App\Http\Controllers\Manager\DashboardController::class, 'index'])->middleware('role:MANAGER_KEU');
+// Route::get('/staff-operasional', [App\Http\Controllers\Staff\DashboardController::class, 'index'])->middleware('role:STAFF_OPS');
+// Route::get('/staff-keuangan', [App\Http\Controllers\Staff\DashboardController::class, 'index'])->middleware('role:STAFF_KEU');
+
+Route::group(['prefix' => 'manager-operasional', 'middleware' => 'role:MANAGER_OPS'], function () {
+    Route::resource('report', App\Http\Controllers\Manager\ManagerOperasionalController::class)->parameters([
+        'report' => 'id']);
+    Route::get('/', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'dashboard']);
+    Route::get('/staff-report', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'staffReport']);
+    Route::get('/{file}', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'download']);
+});
+
+Route::group(['prefix' => 'manager-keuangan', 'middleware' => 'role:MANAGER_KEU'], function () {
+    Route::resource('report', App\Http\Controllers\Manager\ManagerKeuanganController::class)->parameters([
+        'report' => 'id']);
+    Route::get('/', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'dashboard']);
+    Route::get('/staff-report', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'staffReport']);
+    Route::get('/{file}', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'download']);
+});
+
+
+Route::group(['prefix' => 'staff-operasional', 'middleware' => 'role:STAFF_OPS'], function () {
+    Route::get('/', [App\Http\Controllers\Staff\DashboardController::class, 'index']);
+    Route::resource('report', App\Http\Controllers\Staff\ReportController::class)->parameters([
+        'report' => 'id']);
+});
+
+Route::group(['prefix' => 'staff-keuangan', 'middleware' => 'role:STAFF_KEU'], function () {
+    Route::get('/', [App\Http\Controllers\Manager\DashboardController::class, 'index']);
+    Route::resource('report', App\Http\Controllers\Staff\ReportController::class)->parameters([
+        'report' => 'id']);
+});
+
+Route::group(['prefix' => 'direktur', 'middleware' => 'role:DIREKTUR'], function () {
+    Route::get('/', [App\Http\Controllers\Manager\DashboardController::class, 'index']);
+    Route::resource('manager-report', App\Http\Controllers\Manager\ReportController::class)->parameters([
+        'manager-report' => 'id']);
+});
+
 
 
 require __DIR__.'/auth.php';

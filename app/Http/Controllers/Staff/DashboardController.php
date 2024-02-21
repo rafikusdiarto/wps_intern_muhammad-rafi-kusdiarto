@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __construct(){
-        $this->middleware(['role:admin']);
-    }
 
     public function index()
     {
