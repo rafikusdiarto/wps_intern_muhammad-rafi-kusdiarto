@@ -28,28 +28,60 @@
         </div>
     @endif
     <div class="md:flex items-center justify-between px-[2px] mb-5">
-        <h4 class="text-[18px] font-medium text-gray-800 mb-sm-0 grow dark:text-gray-100 mb-2 md:mb-0">Staff Reports
+        <h4 class="text-[18px] font-medium text-gray-800 mb-sm-0 grow dark:text-gray-100 mb-2 md:mb-0">Staff Reports : Keuangan
         </h4>
     </div>
     <div class="grid grid-cols-1 lg:gap-x-6 lg:grid-cols-12">
-        <div class="col-span-12 md:col-span-6 xl:col-span-3">
-            <div class="card dark:bg-zinc-800 dark:border-zinc-600">
-                <img class="rounded" src="./assets/images/img-1.jpg" alt="">
-                <div class="card-body">
-                    <h6 class="mb-1 text-gray-700 text-15 dark:text-gray-100">My Reports</h6>
-                    <p class="text-gray-500 text-13 dark:text-zinc-100">Some quick example text to build on the card title
-                        and make
-                        up the bulk of the card's content.</p>
-                    <a href="" class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Report File</a>
-                    <div class="flex mt-6 gap-2">
-                        <a href=""
-                            class="btn border-transparent bg-green-500 text-white py-2.5 shadow-md shadow-violet-200 dark:shadow-zinc-600">Accept</a>
-                        <a href=""
-                            class="btn border-transparent bg-red-500 text-white py-2.5 shadow-md shadow-violet-200 dark:shadow-zinc-600">Reject</a>
+        @foreach ($getReportStaff as $item)
+            <div class="col-span-12 md:col-span-6 xl:col-span-3">
+                <div class="card dark:bg-zinc-800 dark:border-zinc-600">
+                    <img class="rounded" src="./assets/images/img-1.jpg" alt="">
+                    <div class="card-body">
+                        <h6 class="mb-1 text-gray-700 text-15 dark:text-gray-100">Staff Reports : {{ $item->staff->name }}
+                        </h6>
+                        <p class="text-gray-500 text-13 dark:text-zinc-100">{{ $item->report }}</p>
+                        @if ($item->file_report === '')
+                            <a class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Report File Belum Di Upload</a>
+                        @else
+                            <a href="{{ url($item->file_report) }}" target="blank"
+                                class="text-blue-500 text-20 mt-6 dark:text-zinc-100">My Report File</a>
+                        @endif
+
+                        <div class="mt-4">
+                            @if ($item->status === 'PENDING')
+                                <span class="px-2 py-1 text-xs font-medium text-yellow-500 rounded badge bg-yellow-50"><span
+                                        class="inline-block p-1 mr-1 bg-yellow-500 rounded-full"></span> Pending</span>
+                            @elseif ($item->status === 'DISETUJUI')
+                                <span class="px-2 py-1 text-xs font-medium text-green-500 rounded badge bg-green-50"><span
+                                        class="inline-block p-1 mr-1 bg-green-500 rounded-full"></span> Accepted</span>
+                            @else
+                                <span class="px-2 py-1 text-xs font-medium text-red-500 rounded badge bg-red-50"><span
+                                        class="inline-block p-1 mr-1 bg-red-500 rounded-full"></span> Reject</span>
+                            @endif
+
+                        </div>
+                        <div class="flex mt-6 gap-2">
+                            <form action="{{ url('manager-keuangan/staff-report/acc', $item->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" value="DITERIMA" name="status">
+                                <button type="submit"
+                                    class="btn border-transparent bg-green-500 text-white py-2.5 shadow-md shadow-violet-200 dark:shadow-zinc-600">Accept</button>
+
+                            </form>
+                            <form action="{{ url('manager-keuangan/staff-report/reject', $item->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" value="DITOLAK" name="status">
+                                <button type="submit"
+                                    class="btn border-transparent bg-red-500 text-white py-2.5 shadow-md shadow-violet-200 dark:shadow-zinc-600">Reject</button>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
 
     </div>
 @endsection

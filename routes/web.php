@@ -31,6 +31,8 @@ Route::group(['prefix' => 'manager-operasional', 'middleware' => 'role:MANAGER_O
         'report' => 'id']);
     Route::get('/', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'dashboard']);
     Route::get('/staff-report', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'staffReport']);
+    Route::put('/staff-report/acc/{id}', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'accStaffReport']);
+    Route::put('/staff-report/reject/{id}', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'rejectStaffReport']);
     Route::get('/{file}', [App\Http\Controllers\Manager\ManagerOperasionalController::class, 'download']);
 });
 
@@ -39,6 +41,8 @@ Route::group(['prefix' => 'manager-keuangan', 'middleware' => 'role:MANAGER_KEU'
         'report' => 'id']);
     Route::get('/', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'dashboard']);
     Route::get('/staff-report', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'staffReport']);
+    Route::put('/staff-report/acc/{id}', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'accStaffReport']);
+    Route::put('/staff-report/reject/{id}', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'rejectStaffReport']);
     Route::get('/{file}', [App\Http\Controllers\Manager\ManagerKeuanganController::class, 'download']);
 });
 

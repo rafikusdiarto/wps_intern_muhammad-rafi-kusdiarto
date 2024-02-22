@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Models\ReportStaff;
 use Illuminate\Http\Request;
 use App\Models\ReportManager;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,38 @@ class ManagerKeuanganController extends Controller
     public function staffReport()
     {
         try {
-            return view('manager.keuangan.pages.staff-report');
+            $reportStaff = ReportStaff::where('staff_id', '5')->get();
+            return view('manager.operasional.pages.staff-report', ['getReportStaff'=> $reportStaff]);
+        } catch(\Throwable $e){
+            return redirect()->back()->withError($e->getMessage());
+        } catch(\Illuminate\Database\QueryException $e){
+            return redirect()->back()->withError($e->getMessage());
+        }
+    }
+
+    public function accStaffReport(Request $request, $id)
+    {
+        try {
+            $reportStaff = ReportStaff::findOrFail($id);
+            $reportStaff->update([
+                'status' => "DISETUJUI"
+            ]);
+            return redirect()->back()->with('success','data successfully update');
+        } catch(\Throwable $e){
+            return redirect()->back()->withError($e->getMessage());
+        } catch(\Illuminate\Database\QueryException $e){
+            return redirect()->back()->withError($e->getMessage());
+        }
+    }
+
+    public function rejectStaffReport(Request $request, $id)
+    {
+        try {
+            $reportStaff = ReportStaff::findOrFail($id);
+            $reportStaff->update([
+                'status' => "DITOLAK"
+            ]);
+            return redirect()->back()->with('success','data successfully update');
         } catch(\Throwable $e){
             return redirect()->back()->withError($e->getMessage());
         } catch(\Illuminate\Database\QueryException $e){
