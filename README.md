@@ -1,3 +1,22 @@
+email & password 
+
+direktur@mail.com
+inidirektur
+
+manageroperasional@mail.com
+managerops123
+
+managerkeuangan@mail.com
+managerkeu123
+
+staffoperasional@mail.com
+staffops123
+
+staffkeuangan@mail.com
+staffkeu123
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
