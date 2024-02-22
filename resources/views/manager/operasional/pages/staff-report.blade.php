@@ -44,7 +44,7 @@
                             <a class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Report File Belum Di Upload</a>
                         @else
                             <a href="{{ url($item->file_report) }}" target="blank"
-                                class="text-blue-500 text-20 mt-6 dark:text-zinc-100">My Report File</a>
+                                class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Staff Report File</a>
                         @endif
 
                         <div class="mt-4">
@@ -61,7 +61,7 @@
 
                         </div>
                         <div class="flex mt-6 gap-2">
-                            <form action="{{ url('manager-keuangan/staff-report/acc', $item->id) }}" method="post">
+                            <form action="{{ url('manager-operasional/staff-report/acc', $item->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" value="DITERIMA" name="status">
@@ -69,7 +69,7 @@
                                     class="btn border-transparent bg-green-500 text-white py-2.5 shadow-md shadow-violet-200 dark:shadow-zinc-600">Accept</button>
 
                             </form>
-                            <form action="{{ url('manager-keuangan/staff-report/reject', $item->id) }}" method="post">
+                            <form action="{{ url('manager-operasional/staff-report/reject', $item->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" value="DITOLAK" name="status">

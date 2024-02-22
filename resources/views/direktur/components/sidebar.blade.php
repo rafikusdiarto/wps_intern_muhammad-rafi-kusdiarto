@@ -161,7 +161,7 @@
                 <li class="px-5 py-3 text-xs font-medium text-gray-500 cursor-default leading-[18px] group-data-[sidebar-size=sm]:hidden block"
                     data-key="t-menu">Menu</li>
                 <li>
-                    <a href="{{url('/direktur')}}"
+                    <a href="{{url('/manager-operasional')}}"
                         class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                         <i data-feather="home" fill="#545a6d33"></i>
                         <span data-key="t-dashboard">Dashboard</span>
@@ -175,10 +175,17 @@
                         <span data-key="t-apps">Reports</span>
                     </a>
                     <ul>
-
                         <li>
-                            <a href="{{url('direktur/manager-report')}}"
-                                class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Manager Reports</a>
+                            <a href="{{url('manager-operasional/report')}}"
+                                class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">My Reports</a>
+                        </li>
+                        <li>
+                            <a href="{{url('manager-operasional/report/create')}}"
+                                class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Add Reports</a>
+                        </li>
+                        <li>
+                            <a href="{{url('manager-operasional/staff-report')}}"
+                                class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Staff Reports</a>
                         </li>
 
 

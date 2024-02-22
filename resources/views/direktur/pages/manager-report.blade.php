@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('direktur.layouts.app')
 
 @section('content')
     @if (session('success'))
@@ -28,23 +28,24 @@
         </div>
     @endif
     <div class="md:flex items-center justify-between px-[2px] mb-5">
-        <h4 class="text-[18px] font-medium text-gray-800 mb-sm-0 grow dark:text-gray-100 mb-2 md:mb-0">Staff Reports : Operasional
+        <h4 class="text-[18px] font-medium text-gray-800 mb-sm-0 grow dark:text-gray-100 mb-2 md:mb-0">Manager Reports
         </h4>
     </div>
     <div class="grid grid-cols-1 lg:gap-x-6 lg:grid-cols-12">
-        @foreach ($getReportStaff as $item)
+        @foreach ($getReportManager as $item)
             <div class="col-span-12 md:col-span-6 xl:col-span-3">
                 <div class="card dark:bg-zinc-800 dark:border-zinc-600">
                     <img class="rounded" src="./assets/images/img-1.jpg" alt="">
                     <div class="card-body">
-                        <h6 class="mb-1 text-gray-700 text-15 dark:text-gray-100">Staff Reports : {{ $item->staff->name }}
+                        <h6 class="mb-1 text-gray-700 text-15 dark:text-gray-100">Manager Reports : {{ $item->manager->name }}
+                        <h6 class="mb-1 text-gray-700 text-10 font-bold dark:text-gray-100">{{ $item->manager->getRoleNames()->first() }}
                         </h6>
                         <p class="text-gray-500 text-13 dark:text-zinc-100">{{ $item->report }}</p>
                         @if ($item->file_report === '')
                             <a class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Report File Belum Di Upload</a>
                         @else
                             <a href="{{ url($item->file_report) }}" target="blank"
-                                class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Staff Report File</a>
+                                class="text-blue-500 text-20 mt-6 dark:text-zinc-100">Manager Report File</a>
                         @endif
 
                         <div class="mt-4">
@@ -61,7 +62,7 @@
 
                         </div>
                         <div class="flex mt-6 gap-2">
-                            <form action="{{ url('manager-keuangan/staff-report/acc', $item->id) }}" method="post">
+                            <form action="{{ url('direktur/manager-report/acc', $item->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" value="DITERIMA" name="status">
@@ -69,7 +70,7 @@
                                     class="btn border-transparent bg-green-500 text-white py-2.5 shadow-md shadow-violet-200 dark:shadow-zinc-600">Accept</button>
 
                             </form>
-                            <form action="{{ url('manager-keuangan/staff-report/reject', $item->id) }}" method="post">
+                            <form action="{{ url('direktur/manager-report/reject', $item->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" value="DITOLAK" name="status">

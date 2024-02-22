@@ -61,11 +61,16 @@ Route::group(['prefix' => 'staff-keuangan', 'middleware' => 'role:STAFF_KEU'], f
 });
 
 Route::group(['prefix' => 'direktur', 'middleware' => 'role:DIREKTUR'], function () {
-    Route::get('/', [App\Http\Controllers\Manager\DashboardController::class, 'index']);
-    Route::resource('manager-report', App\Http\Controllers\Manager\ReportController::class)->parameters([
-        'manager-report' => 'id']);
+    Route::resource('report', App\Http\Controllers\Direktur\DirekturController::class)->parameters([
+        'report' => 'id']);
+    Route::get('/', [App\Http\Controllers\Direktur\DirekturController::class, 'dashboard']);
+    Route::get('/manager-report', [App\Http\Controllers\Direktur\DirekturController::class, 'staffReport']);
+    Route::put('/manager-report/acc/{id}', [App\Http\Controllers\Direktur\DirekturController::class, 'accStaffReport']);
+    Route::put('/manager-report/reject/{id}', [App\Http\Controllers\Direktur\DirekturController::class, 'rejectStaffReport']);
+    Route::get('/{file}', [App\Http\Controllers\Direktur\DirekturController::class, 'download']);
 });
 
+Route::get('api/manager-report', [App\Http\Controllers\Direktur\DirekturController::class, 'staffReportApi']);
 
 
 require __DIR__.'/auth.php';
